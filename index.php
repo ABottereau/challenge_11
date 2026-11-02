@@ -7,7 +7,7 @@ $firstname = trim($_POST['firstname']);
 $lastname = trim($_POST['lastname']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['firstname']) && !empty($_POST['lastname'])) {
+    if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && is_string($_POST['firstname']) && is_string($_POST['lastname']) && strlen($_POST['firstname']) <= 45 && strlen($_POST['lastname']) <= 45) {
         $query = 'INSERT INTO friend (firstname, lastname) VALUES (:firstname, :lastname)';
         $statement = $pdo->prepare($query);
 
@@ -54,9 +54,9 @@ echo "<!DOCTYPE html>
     <h3>Ajouter</h3>
     <form action=\"index.php\" method=\"post\">
         <label for =\"firstName\">Prénom</label>
-        <input type=\"text\" id=\"firstname\" name=\"firstname\">
+        <input type=\"text\" id=\"firstname\" name=\"firstname\" placeholder=\"45 caractères max.\">
         <label for =\"lastName\">Nom</label>
-        <input type=\"text\" id=\"lastname\" name=\"lastname\">
+        <input type=\"text\" id=\"lastname\" name=\"lastname\" placeholder=\"45 caractères max.\">
         <button type=\"submit\">Valider</button>
 </body>
 </html>";
